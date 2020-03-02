@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import SvgIcon from "@material-ui/core/SvgIcon";
 
-export function createSvgIcon(path, displayName) {
+export function createSvgIcon(path: ReactNode, displayName: string) {
   const Component = React.memo(
     React.forwardRef((props, ref) => (
       <SvgIcon {...props} ref={ref}>
