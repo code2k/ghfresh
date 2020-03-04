@@ -15,12 +15,11 @@ import { RootState } from "./rootReducer";
 
 import AddRepo from "../features/repos/AddRepo";
 import ThemeToggle from "../features/theme/ThemeToggle";
+import RepoList from "../features/repos/RepoList";
 
-const selectRepo = (state: RootState) => state.repos;
 const selectDarkMode = (state: RootState) => state.theme.darkMode;
 
 const App = () => {
-  const repos = useSelector(selectRepo);
   const darkMode = useSelector(selectDarkMode);
   const dispatch = useDispatch();
 
@@ -39,7 +38,7 @@ const App = () => {
       <Container maxWidth="lg">
         <ThemeToggle />
         <AddRepo />
-        <div>{repos.map(repo => ` ${repo.id}: ${repo.lastUpdate}`)}</div>
+        <RepoList />
         <Box marginTop={2}>
           <Button variant="outlined" color="primary" onClick={onRefresh}>
             Refresh

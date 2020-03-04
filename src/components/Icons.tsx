@@ -17,6 +17,11 @@ export function createSvgIcon(path: ReactNode, displayName: string) {
   return Component;
 }
 
+export const ExpandMoreIcon = createSvgIcon(
+  <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />,
+  "ExpandMore"
+);
+
 export const ThemeDarkIcon = createSvgIcon(
   <path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z" />,
   "BrightnessHigh"
