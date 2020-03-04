@@ -1,7 +1,7 @@
-const API = "https://api.github.com/repos";
+const API = "https://api.github.com";
 
 export const getLatestRelease = async (repo: string) => {
-  const url = `${API}/${repo}/releases/latest`;
+  const url = `${API}/repos/${repo}/releases/latest`;
 
   if (process.env.NODE_ENV === "development") {
     return new Promise(resolve => {
