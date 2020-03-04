@@ -81,9 +81,7 @@ const responseToRepo = (id: string, response: any): Repo => {
   };
 };
 
-export const fetchLatestRelease = (
-  repoID: string
-): AppThunk => async dispatch => {
+export const addNewRepo = (repoID: string): AppThunk => async dispatch => {
   try {
     const latestRelease = await getLatestRelease(repoID);
     dispatch(addRepo(responseToRepo(repoID, latestRelease)));

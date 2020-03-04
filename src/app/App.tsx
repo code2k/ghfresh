@@ -15,7 +15,7 @@ import { updateAll } from "../features/repos/reposSlice";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
 
-import AddRepo from "../features/repos/AddRepo";
+import AddRepo from "../features/addRepo/AddRepo";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import RepoList from "../features/repos/RepoList";
 
