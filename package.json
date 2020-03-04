@@ -20,6 +20,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
     "@types/webpack-env": "^1.15.1",
+    "jest-fetch-mock": "^3.0.1",
     "react-scripts": "3.4.0",
     "typescript": "~3.8.3",
     "webpack-bundle-analyzer": "^3.6.0"

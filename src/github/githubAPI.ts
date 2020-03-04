@@ -15,5 +15,11 @@ export const getLatestRelease = async (repo: string) => {
   const resp = await fetch(url);
   const json = await resp.json();
 
+  if (resp.status !== 200) {
+    throw new Error(
+      `getLatestRelease error: ${resp.status} -> ${json.message} `
+    );
+  }
+
   return json;
 };
