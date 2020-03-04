@@ -6,7 +6,7 @@ export const getLatestRelease = async (repo: string) => {
   if (process.env.NODE_ENV === "development") {
     return new Promise(resolve => {
       setTimeout(() => {
-        const json = require("./response.latest.json");
+        const json = require("./fixtures/response.latest.json");
         resolve(json);
       }, 1);
     });
@@ -22,4 +22,19 @@ export const getLatestRelease = async (repo: string) => {
   }
 
   return json;
+};
+
+export const searchRepos = async (repo: string): Promise<string[]> => {
+  const url = `${API}/search/repositories?q=${repo}`;
+
+  const resp = await fetch(url);
+
+  if (resp.status !== 200) {
+    throw new Error(`searchRepo error: ${resp.status}`);
+  }
+
+  const json = await resp.json();
+  const repos = json.items.map((item: any) => item.full_name);
+
+  return repos;
 };

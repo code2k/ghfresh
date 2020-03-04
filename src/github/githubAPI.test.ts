@@ -1,6 +1,7 @@
-import { getLatestRelease } from "./githubAPI";
+import { getLatestRelease, searchRepos } from "./githubAPI";
 
-import responseLatest from "./response.latest.json";
+import responseLatest from "./fixtures/response.latest.json";
+import responseSearch from "./fixtures/response.search.json";
 
 describe("githubAPI", () => {
   beforeEach(() => {
@@ -24,6 +25,22 @@ describe("githubAPI", () => {
         { status: 404 }
       );
       await expect(getLatestRelease("something")).rejects.toThrow("404");
+    });
+  });
+
+  describe("searchRepos", () => {
+    it("should return correct result", async () => {
+      fetchMock.mockResponseOnce(JSON.stringify(responseSearch));
+      const repos = await searchRepos("some/repo");
+      expect(repos).toEqual([
+        "reduxjs/redux",
+        "StephenGrider/ReduxSimpleStarter",
+        "StephenGrider/ReduxCasts"
+      ]);
+    });
+    it("should return error", async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
+      await expect(searchRepos("something")).rejects.toThrow("500");
     });
   });
 });
