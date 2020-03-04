@@ -3,7 +3,7 @@ import { getLatestRelease } from "../../github/githubAPI";
 
 import { AppThunk } from "../../app/store";
 
-interface Repo {
+export interface Repo {
   id: string;
   lastUpdate: number;
   latestRelease: any;
@@ -11,7 +11,7 @@ interface Repo {
   error: Error | null;
 }
 
-type ReposState = Repo[];
+export type ReposState = Repo[];
 
 const initialState: ReposState = [];
 

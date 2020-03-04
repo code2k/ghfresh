@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "preact/hooks";
+import { PersistGate } from "redux-persist/integration/react";
 import {
   Box,
   Button,
@@ -12,6 +13,7 @@ import {
 import createTheme from "./theme";
 import { updateAll } from "../features/repos/reposSlice";
 import { RootState } from "./rootReducer";
+import { persistor } from "./store";
 
 import AddRepo from "../features/repos/AddRepo";
 import ThemeToggle from "../features/theme/ThemeToggle";
@@ -35,16 +37,18 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <ThemeToggle />
-        <AddRepo />
-        <RepoList />
-        <Box marginTop={2}>
-          <Button variant="outlined" color="primary" onClick={onRefresh}>
-            Refresh
-          </Button>
-        </Box>
-      </Container>
+      <PersistGate loading={null} persistor={persistor}>
+        <Container maxWidth="lg">
+          <ThemeToggle />
+          <AddRepo />
+          <RepoList />
+          <Box marginTop={2}>
+            <Button variant="outlined" color="primary" onClick={onRefresh}>
+              Refresh
+            </Button>
+          </Box>
+        </Container>
+      </PersistGate>
     </ThemeProvider>
   );
 };
