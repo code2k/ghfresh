@@ -1,12 +1,10 @@
 import { Box, Button, makeStyles, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { useEffect, useState } from "preact/hooks";
 import React, { ChangeEvent, FormEvent, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { useDebounce } from "use-debounce";
-import { searchRepos } from "../../github/githubAPI";
 import isRepoString from "../../github/isRepoString";
 import { addNewRepo } from "../repos/reposSlice";
+import useRepoSearch from "./useRepoSearch";
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -20,35 +18,10 @@ const useStyles = makeStyles(theme => ({
 
 const AddRepo = () => {
   const classes = useStyles();
-  const [repo, setRepo] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [searchTerm] = useDebounce(repo, 500);
   const dispatch = useDispatch();
+  const [repo, setRepo, suggestions] = useRepoSearch("");
 
   const isValid = useMemo(() => isRepoString(repo), [repo]);
-
-  // remove suggestions if the input is to short
-  useEffect(() => {
-    if (repo.length <= 3) {
-      setSuggestions([]);
-    }
-  }, [repo]);
-
-  // search on debounced searchTerm change
-  useEffect(() => {
-    if (searchTerm.length <= 3) {
-      return;
-    }
-
-    (async () => {
-      try {
-        const results = await searchRepos(searchTerm);
-        setSuggestions(results);
-      } catch (err) {
-        setSuggestions([err]);
-      }
-    })();
-  }, [searchTerm]);
 
   const onChange = (e: ChangeEvent<{}>, value: string | null) => {
     setRepo(value || "");
@@ -69,7 +42,6 @@ const AddRepo = () => {
         <Autocomplete
           inputValue={repo}
           onInputChange={onChange}
-          autoHighlight
           size="small"
           options={suggestions}
           clearOnEscape
