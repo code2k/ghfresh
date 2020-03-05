@@ -1,20 +1,22 @@
-import React from "react";
-import clsx from "clsx";
 import {
-  makeStyles,
   Avatar,
+  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Collapse,
   IconButton,
-  Typography,
-  Button
+  makeStyles,
+  Typography
 } from "@material-ui/core";
-
+import clsx from "clsx";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { ExpandMoreIcon } from "../../components/Icons";
 import Markdown from "../../components/Markdown";
+import RemoveDialog from "./RemoveDialog";
+import { removeRepo } from "./reposSlice";
 
 const useStyles = makeStyles(({ spacing, transitions }) => ({
   card: {
@@ -55,11 +57,26 @@ interface Props {
 
 const RepoListItem = ({ repo }: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleRemoveClick = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogCancel = useCallback(() => {
+    setOpenDialog(false);
+  }, [setOpenDialog]);
+
+  const handleDialogOK = useCallback(() => {
+    setOpenDialog(false);
+    dispatch(removeRepo(repo.id));
+  }, [dispatch, repo, setOpenDialog]);
 
   return (
     <Card className={classes.card} elevation={3}>
@@ -84,6 +101,9 @@ const RepoListItem = ({ repo }: Props) => {
         >
           Github
         </Button>
+        <Button onClick={handleRemoveClick} size="small" color="primary">
+          Remove
+        </Button>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
@@ -100,6 +120,12 @@ const RepoListItem = ({ repo }: Props) => {
           <Markdown markdown={repo.html} />
         </CardContent>
       </Collapse>
+      <RemoveDialog
+        repoID={repo.id}
+        open={openDialog}
+        handleOK={handleDialogOK}
+        handleCancel={handleDialogCancel}
+      />
     </Card>
   );
 };
