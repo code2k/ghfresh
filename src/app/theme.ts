@@ -1,9 +1,11 @@
-import { createMuiTheme } from "@material-ui/core";
+import { colors, createMuiTheme } from "@material-ui/core";
 
 const createTheme = (darkTheme: boolean) =>
   createMuiTheme({
     palette: {
-      type: darkTheme ? "dark" : "light"
+      type: darkTheme ? "dark" : "light",
+      primary: colors.blue,
+      secondary: colors.pink
     },
     typography: {
       fontFamily: [
