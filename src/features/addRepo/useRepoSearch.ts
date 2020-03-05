@@ -1,11 +1,10 @@
-import { StateUpdater } from "preact/hooks/src";
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce/lib";
 import { searchRepos } from "../../github/githubAPI";
 
 const useRepoSearch = (
   initialValue: string
-): [string, StateUpdater<string>, string[]] => {
+): [string, Dispatch<string>, string[]] => {
   const [input, setInput] = useState<string>(initialValue);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [debouncedInput] = useDebounce(input, 500);
