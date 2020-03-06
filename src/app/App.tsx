@@ -1,7 +1,3 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useMemo } from "preact/hooks";
-import { PersistGate } from "redux-persist/integration/react";
 import {
   Box,
   Button,
@@ -9,15 +5,18 @@ import {
   CssBaseline,
   ThemeProvider
 } from "@material-ui/core";
-
-import createTheme from "./theme";
+import { useMemo } from "preact/hooks";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import AddRepo from "../features/addRepo/AddRepo";
+import Notifications from "../features/notifications/Notifications";
+import RepoList from "../features/repos/RepoList";
 import { updateAll } from "../features/repos/reposSlice";
+import ThemeToggle from "../features/theme/ThemeToggle";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
-
-import AddRepo from "../features/addRepo/AddRepo";
-import ThemeToggle from "../features/theme/ThemeToggle";
-import RepoList from "../features/repos/RepoList";
+import createTheme from "./theme";
 
 const selectDarkMode = (state: RootState) => state.theme.darkMode;
 
@@ -48,6 +47,7 @@ const App = () => {
             </Button>
           </Box>
         </Container>
+        <Notifications />
       </PersistGate>
     </ThemeProvider>
   );

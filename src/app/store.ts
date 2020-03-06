@@ -1,14 +1,13 @@
-import { configureStore, getDefaultMiddleware, Action } from "@reduxjs/toolkit";
-import { ThunkAction } from "redux-thunk";
+import { Action, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   createTransform,
-  persistStore,
-  persistReducer,
+  PERSIST,
   PersistConfig,
-  PERSIST
+  persistReducer,
+  persistStore
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+import { ThunkAction } from "redux-thunk";
 import { Repo, ReposState } from "../features/repos/reposSlice";
 import rootReducer, { RootState } from "./rootReducer";
 
@@ -34,6 +33,7 @@ const cleanReposState = createTransform(
 const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
+  blacklist: ["notifications"],
   transforms: [cleanReposState]
 };
 
