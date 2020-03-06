@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getLatestRelease } from "../../github/githubAPI";
+import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
 
 import { AppThunk } from "../../app/store";
+import { addNotification } from "../notifications/notificationsSlice";
 
 export interface Repo {
   id: string;
@@ -85,8 +86,16 @@ export const addNewRepo = (repoID: string): AppThunk => async dispatch => {
   try {
     const latestRelease = await getLatestRelease(repoID);
     dispatch(addRepo(responseToRepo(repoID, latestRelease)));
+    dispatch(
+      addNotification({ message: `Added "${repoID}"`, type: "success" })
+    );
   } catch (err) {
-    // TODO error handling
+    const msg =
+      err instanceof RepoNotFoundError
+        ? err.message
+        : `Error adding "${repoID}"`;
+
+    dispatch(addNotification({ message: msg, type: "error" }));
   }
 };
 
@@ -99,6 +108,12 @@ export const updateLatestRelease = (
     dispatch(updateRepoSuccess(responseToRepo(repoID, latestRelease)));
   } catch (err) {
     dispatch(updateRepoFailed({ id: repoID, error: err }));
+    dispatch(
+      addNotification({
+        message: `Update for "${repoID}" failed`,
+        type: "error"
+      })
+    );
   }
 };
 

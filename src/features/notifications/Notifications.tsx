@@ -62,7 +62,7 @@ const Notifications = () => {
           horizontal: "center"
         }}
         open={open}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         onClose={handleClose}
         onEntered={handleEntered}
         onExited={handleExited}

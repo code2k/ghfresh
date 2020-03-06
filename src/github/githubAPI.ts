@@ -1,10 +1,17 @@
 const API = "https://api.github.com";
 
+export class RepoNotFoundError extends Error {
+  constructor(m: string) {
+    super(m);
+    Object.setPrototypeOf(this, RepoNotFoundError.prototype);
+  }
+}
+
 export const getLatestRelease = async (repo: string) => {
   const url = `${API}/repos/${repo}/releases/latest`;
 
   if (process.env.NODE_ENV === "development") {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         const json = require("./fixtures/response.latest.json");
         resolve(json);
@@ -14,6 +21,10 @@ export const getLatestRelease = async (repo: string) => {
 
   const resp = await fetch(url);
   const json = await resp.json();
+
+  if (resp.status === 404) {
+    throw new RepoNotFoundError(`"${repo}" does not exist`);
+  }
 
   if (resp.status !== 200) {
     throw new Error(
