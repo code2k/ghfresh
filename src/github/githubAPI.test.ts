@@ -24,7 +24,9 @@ describe("githubAPI", () => {
         }),
         { status: 404 }
       );
-      await expect(getLatestRelease("something")).rejects.toThrow("404");
+      await expect(getLatestRelease("something")).rejects.toThrow(
+        "does not exist"
+      );
     });
   });
 
