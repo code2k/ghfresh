@@ -1,18 +1,12 @@
-import {
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  ThemeProvider
-} from "@material-ui/core";
+import { Box, Container, CssBaseline, ThemeProvider } from "@material-ui/core";
 import { useMemo } from "preact/hooks";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AddRepo from "../features/addRepo/AddRepo";
 import Notifications from "../features/notifications/Notifications";
+import RefreshButton from "../features/repos/RefreshButton";
 import RepoList from "../features/repos/RepoList";
-import { updateAll } from "../features/repos/reposSlice";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
@@ -22,16 +16,10 @@ const selectDarkMode = (state: RootState) => state.theme.darkMode;
 
 const App = () => {
   const darkMode = useSelector(selectDarkMode);
-  const dispatch = useDispatch();
 
   const theme = useMemo(() => {
     return createTheme(darkMode);
   }, [darkMode]);
-
-  const onRefresh = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    dispatch(updateAll);
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,9 +30,7 @@ const App = () => {
           <AddRepo />
           <RepoList />
           <Box marginTop={2}>
-            <Button variant="outlined" color="primary" onClick={onRefresh}>
-              Refresh
-            </Button>
+            <RefreshButton />
           </Box>
         </Container>
         <Notifications />
