@@ -131,12 +131,24 @@ export const updateLatestRelease = (
   }
 };
 
+/**
+ * Minimum time between repository updates. Defaults to one 1 hour.
+ * Configure value in .env
+ */
+const updateInterval =
+  parseInt(process.env.REACT_APP_UPDATE_INTERVAL || "3600") * 1000;
+
 export const updateAll: AppThunk = async (dispatch, getState) => {
   const repos = getState().repos;
   repos.forEach(repo => {
     if (repo.loading) {
       return;
     }
+    const waitPeriod = new Date().getTime() - repo.lastUpdate;
+    if (waitPeriod <= updateInterval) {
+      return;
+    }
+
     dispatch(updateLatestRelease(repo.id));
   });
 };
