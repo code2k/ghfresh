@@ -1,10 +1,10 @@
 import { Box, Container, CssBaseline, ThemeProvider } from "@material-ui/core";
-import { useMemo } from "preact/hooks";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AddRepo from "../features/addRepo/AddRepo";
 import Notifications from "../features/notifications/Notifications";
+import useAutoUpdate from "../features/repos/autoUpdate";
 import RefreshButton from "../features/repos/RefreshButton";
 import RepoList from "../features/repos/RepoList";
 import ThemeToggle from "../features/theme/ThemeToggle";
@@ -15,6 +15,7 @@ import createTheme from "./theme";
 const selectDarkMode = (state: RootState) => state.theme.darkMode;
 
 const App = () => {
+  useAutoUpdate();
   const darkMode = useSelector(selectDarkMode);
 
   const theme = useMemo(() => {
