@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
-
 import { AppThunk } from "../../app/store";
+import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
 import { addNotification } from "../notifications/notificationsSlice";
 
 export interface Repo {
@@ -82,7 +81,22 @@ const responseToRepo = (id: string, response: any): Repo => {
   };
 };
 
-export const addNewRepo = (repoID: string): AppThunk => async dispatch => {
+export const addNewRepo = (repoID: string): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  // prevent duplicate repositories
+  const exists = getState().repos.some(repo => repo.id === repoID);
+  if (exists) {
+    dispatch(
+      addNotification({
+        message: `Repository "${repoID} already exists`,
+        type: "info"
+      })
+    );
+    return;
+  }
+
   try {
     const latestRelease = await getLatestRelease(repoID);
     dispatch(addRepo(responseToRepo(repoID, latestRelease)));
