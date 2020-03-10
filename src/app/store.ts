@@ -8,7 +8,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { ThunkAction } from "redux-thunk";
-import { Repo, ReposState } from "../features/repos/reposSlice";
+import { Repo, ReposState, updateAll } from "../features/repos/reposSlice";
 import rootReducer, { RootState } from "./rootReducer";
 
 type RootReducerType = typeof rootReducer;
@@ -60,7 +60,10 @@ if (process.env.NODE_ENV === "development" && module.hot) {
   });
 }
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store, null, () => {
+  // update all repositories after initial store rehydration
+  store.dispatch(updateAll);
+});
 
 export type AppDispatch = typeof store.dispatch;
 
