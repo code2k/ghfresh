@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
 import marked from "marked";
-
-import "github-markdown-css";
+import React, { useMemo } from "react";
+import useStyles from "./styles";
 
 const Markdown = ({ markdown }: { markdown: string }) => {
+  const classes = useStyles();
   const html = useMemo(() => marked(markdown), [markdown]);
   return (
-    <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
+    <div className={classes.root} dangerouslySetInnerHTML={{ __html: html }} />
   );
 };
 

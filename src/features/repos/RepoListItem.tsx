@@ -14,7 +14,7 @@ import clsx from "clsx";
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ExpandMoreIcon } from "../../components/Icons";
-import Markdown from "../../components/Markdown";
+import Markdown from "../../components/markdown/Markdown";
 import RemoveDialog from "./RemoveDialog";
 import { removeRepo } from "./reposSlice";
 
