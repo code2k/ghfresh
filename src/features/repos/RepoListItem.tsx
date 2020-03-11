@@ -117,7 +117,7 @@ const RepoListItem = ({ repo }: Props) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Markdown markdown={repo.html} />
+          <Markdown markdown={repo.html} repoID={repo.id} />
         </CardContent>
       </Collapse>
       <RemoveDialog
