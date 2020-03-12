@@ -1,0 +1,41 @@
+{
+  "url": "https://api.github.com/repos/mui-org/material-ui/releases/24097222",
+  "assets_url": "https://api.github.com/repos/mui-org/material-ui/releases/24097222/assets",
+  "upload_url": "https://uploads.github.com/repos/mui-org/material-ui/releases/24097222/assets{?name,label}",
+  "html_url": "https://github.com/mui-org/material-ui/releases/tag/v4.9.5",
+  "id": 24097222,
+  "node_id": "MDc6UmVsZWFzZTI0MDk3MjIy",
+  "tag_name": "v4.9.5",
+  "target_commitish": "master",
+  "name": "",
+  "draft": false,
+  "author": {
+    "login": "oliviertassinari",
+    "id": 3165635,
+    "node_id": "MDQ6VXNlcjMxNjU2MzU=",
+    "avatar_url": "https://avatars2.githubusercontent.com/u/3165635?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/oliviertassinari",
+    "html_url": "https://github.com/oliviertassinari",
+    "followers_url": "https://api.github.com/users/oliviertassinari/followers",
+    "following_url": "https://api.github.com/users/oliviertassinari/following{/other_user}",
+    "gists_url": "https://api.github.com/users/oliviertassinari/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/oliviertassinari/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/oliviertassinari/subscriptions",
+    "organizations_url": "https://api.github.com/users/oliviertassinari/orgs",
+    "repos_url": "https://api.github.com/users/oliviertassinari/repos",
+    "events_url": "https://api.github.com/users/oliviertassinari/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/oliviertassinari/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "prerelease": false,
+  "created_at": "2020-02-29T10:36:03Z",
+  "published_at": "2020-02-29T10:36:57Z",
+  "assets": [
+
+  ],
+  "tarball_url": "https://api.github.com/repos/mui-org/material-ui/tarball/v4.9.5",
+  "zipball_url": "https://api.github.com/repos/mui-org/material-ui/zipball/v4.9.5",
+  "body": "###### *Feb 29, 2020*\r\n\r\nBig thanks to the 15 contributors who made this release possible.\r\n\r\nHere are some highlights ✨:\r\n\r\n- 💄 Add selection (and multi-selection) support to tree view (#18357) @joshwooding\r\n- And many more 🐛 bug fixes and 📚 improvements.\r\n\r\n### `@material-ui/core@v4.9.5`\r\n\r\n- [ButtonBase] Fix when changing enableRipple prop from false to true  (#19667) @dmtrKovalenko\r\n- [l10n] Add Armenian (hy-AM) locale (#19844) @vgevorgyan\r\n- [l10n] Add Hebrew (he-IL) locale (#19850) @boazberman\r\n- [Popper] Fix deep merge of PopperProps (#19851) @valgrindMaster\r\n- [RadioGroup] Random default name (#19890) @dfernandez-asapp\r\n- [Slider] Add explicit types for slider callbacks (#19867) @deymundson\r\n- [Step] Add missing expanded prop to step TypeScript (#19873) @countableSet\r\n\r\n### `@material-ui/lab@v4.0.0-alpha.45`\r\n\r\n- [Autocomplete] Fix list of countries (#19862) @FottyM\r\n- [TreeView] Fix conditional nodes support (#19849) @joshwooding\r\n- [Treeview] Add node selection support (#18357) @joshwooding\r\n\r\n### Docs\r\n\r\n- [docs] Fix broken link to jss-nested plugin (#19837) @Izhaki\r\n- [docs] Fix typo on supported-platforms.md (#19841) @vferdiansyah\r\n- [docs] Move store to a subfolder (#19822) @oliviertassinari\r\n\r\n### Core\r\n\r\n- [ci] Enable re-run of azure pipelines (#19823) @eps1lon\r\n- [ci] fix heap out of memory in azure pipelines (#19825) @eps1lon\r\n- [core] Migrate to import * as React from 'react' (#19802) @TrySound\r\n- [test] Fix defaultProps overriding props (#19858) @eps1lon\r\n- [test] Test against typescript nightlies (#19857) @eps1lon"
+}

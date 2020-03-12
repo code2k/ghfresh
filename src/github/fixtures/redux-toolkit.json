@@ -1,0 +1,41 @@
+{
+  "url": "https://api.github.com/repos/reduxjs/redux-toolkit/releases/23629271",
+  "assets_url": "https://api.github.com/repos/reduxjs/redux-toolkit/releases/23629271/assets",
+  "upload_url": "https://uploads.github.com/repos/reduxjs/redux-toolkit/releases/23629271/assets{?name,label}",
+  "html_url": "https://github.com/reduxjs/redux-toolkit/releases/tag/v1.2.5",
+  "id": 23629271,
+  "node_id": "MDc6UmVsZWFzZTIzNjI5Mjcx",
+  "tag_name": "v1.2.5",
+  "target_commitish": "master",
+  "name": "v1.2.5",
+  "draft": false,
+  "author": {
+    "login": "markerikson",
+    "id": 1128784,
+    "node_id": "MDQ6VXNlcjExMjg3ODQ=",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/1128784?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/markerikson",
+    "html_url": "https://github.com/markerikson",
+    "followers_url": "https://api.github.com/users/markerikson/followers",
+    "following_url": "https://api.github.com/users/markerikson/following{/other_user}",
+    "gists_url": "https://api.github.com/users/markerikson/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/markerikson/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/markerikson/subscriptions",
+    "organizations_url": "https://api.github.com/users/markerikson/orgs",
+    "repos_url": "https://api.github.com/users/markerikson/repos",
+    "events_url": "https://api.github.com/users/markerikson/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/markerikson/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "prerelease": false,
+  "created_at": "2020-02-13T03:59:32Z",
+  "published_at": "2020-02-13T04:06:20Z",
+  "assets": [
+
+  ],
+  "tarball_url": "https://api.github.com/repos/reduxjs/redux-toolkit/tarball/v1.2.5",
+  "zipball_url": "https://api.github.com/repos/reduxjs/redux-toolkit/zipball/v1.2.5",
+  "body": "This release tweaks the type definitions to fix an error where `meta` and `error` could not be typed when using the `prepare` notation of `createSlice`.\r\n\r\n## Changelog\r\n\r\n- correctly enforce meta and error types as returned from `prepare` (@phryneas - #350)\r\n\r\n\r\nhttps://github.com/reduxjs/redux-toolkit/compare/v1.2.4...v1.2.5"
+}

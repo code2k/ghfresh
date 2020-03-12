@@ -1,7 +1,7 @@
 import { getLatestRelease, searchRepos } from "./githubAPI";
 
-import responseLatest from "./fixtures/response.latest.json";
-import responseSearch from "./fixtures/response.search.json";
+import responseLatest from "./fixtures/preact.json";
+import responseSearch from "./fixtures/search.json";
 
 describe("githubAPI", () => {
   beforeEach(() => {

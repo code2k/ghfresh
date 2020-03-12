@@ -1,0 +1,41 @@
+{
+  "url": "https://api.github.com/repos/markedjs/marked/releases/18448144",
+  "assets_url": "https://api.github.com/repos/markedjs/marked/releases/18448144/assets",
+  "upload_url": "https://uploads.github.com/repos/markedjs/marked/releases/18448144/assets{?name,label}",
+  "html_url": "https://github.com/markedjs/marked/releases/tag/v0.8.0",
+  "id": 18448144,
+  "node_id": "MDc6UmVsZWFzZTE4NDQ4MTQ0",
+  "tag_name": "v0.8.0",
+  "target_commitish": "master",
+  "name": "0.8.0",
+  "draft": false,
+  "author": {
+    "login": "UziTech",
+    "id": 97994,
+    "node_id": "MDQ6VXNlcjk3OTk0",
+    "avatar_url": "https://avatars3.githubusercontent.com/u/97994?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/UziTech",
+    "html_url": "https://github.com/UziTech",
+    "followers_url": "https://api.github.com/users/UziTech/followers",
+    "following_url": "https://api.github.com/users/UziTech/following{/other_user}",
+    "gists_url": "https://api.github.com/users/UziTech/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/UziTech/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/UziTech/subscriptions",
+    "organizations_url": "https://api.github.com/users/UziTech/orgs",
+    "repos_url": "https://api.github.com/users/UziTech/repos",
+    "events_url": "https://api.github.com/users/UziTech/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/UziTech/received_events",
+    "type": "User",
+    "site_admin": false
+  },
+  "prerelease": false,
+  "created_at": "2019-12-12T20:47:15Z",
+  "published_at": "2019-12-12T20:48:35Z",
+  "assets": [
+
+  ],
+  "tarball_url": "https://api.github.com/repos/markedjs/marked/tarball/v0.8.0",
+  "zipball_url": "https://api.github.com/repos/markedjs/marked/zipball/v0.8.0",
+  "body": "## Breaking changes\r\n\r\n- Remove substitutions #1532\r\n- Separate source into modules #1563 #1572 #1573 #1575 #1576 #1581\r\n\r\n## Fixes\r\n\r\n- Fix relative urls in `baseUrl` option #1526 \r\n- Loose task list #1535\r\n- Fix image parentheses #1557\r\n- remove module field & update devDependencies #1581\r\n\r\n## Docs\r\n\r\n- Update examples with es6+ #1521\r\n- Fix link to USING_PRO.md page #1552\r\n- Fix typo in USING_ADVANCED.md #1558\r\n- Node worker threads are stable #1555\r\n\r\n## Dev Dependencies\r\n\r\n- Update deps #1516\r\n- Update eslint #1542\r\n- Update htmldiffer async matcher #1543"
+}
