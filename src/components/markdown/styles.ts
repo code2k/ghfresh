@@ -98,6 +98,7 @@ export default makeStyles(({ palette }) => {
         padding: "0 0 0 2em"
       },
       "& li": {
+        marginTop: "0.25em",
         "& p": {
           "&:last-child": {
             margin: "0"
