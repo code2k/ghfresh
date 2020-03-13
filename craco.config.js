@@ -1,7 +1,20 @@
 const path = require("path");
-const { whenDev, whenProd } = require("@craco/craco");
+const { whenDev, when } = require("@craco/craco");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+
+const bundleAnalyzer = when(
+  process.env.REPORT === "true" && process.env.NODE_ENV === "production",
+  () => [new BundleAnalyzerPlugin()],
+  []
+);
+
+const apiMockAlias = whenDev(() => ({
+  "../../github/githubAPI": path.resolve(
+    __dirname,
+    "./src/github/mockGithubAPI"
+  )
+}));
 
 module.exports = {
   webpack: {
@@ -9,20 +22,9 @@ module.exports = {
       react: "preact/compat",
       "react-dom/test-utils": "preact/test-utils",
       "react-dom": "preact/compat",
-      ...whenDev(() => ({
-        "../../github/githubAPI": path.resolve(
-          __dirname,
-          "./src/github/mockGithubAPI"
-        )
-      }))
+      ...apiMockAlias
     },
-    plugins: [
-      ...whenProd(() => {
-        return process.env.REPORT === "true"
-          ? [new BundleAnalyzerPlugin()]
-          : [];
-      }, [])
-    ]
+    plugins: [...bundleAnalyzer]
   },
   devServer: {
     open: false
