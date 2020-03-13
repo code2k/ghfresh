@@ -9,7 +9,7 @@ renderer.link = (href: string, title: string, text: string) => {
     ""}" target="__blank" rel="noopener"/>${text}</a>`;
 };
 
-const mention = /([^[])@([a-z\-\d]+)/gi;
+const mention = /(?!`)([^\w\n\v\r]|^)@([\w.-]+[^\W])/gi;
 const pull = /([^[])#([\d]+)/gi;
 
 const replaceShortcuts = (markdown: string, repoID: string): string => {
