@@ -23,23 +23,45 @@ const RepoList = ({ repos }: Props) => {
 };
 
 const selectRepos = (state: RootState) => state.repos;
+const selectSort = (state: RootState) => state.sort;
 
-const reposToModel = createSelector(selectRepos, (repos): RepoListItemModel[] =>
-  repos.map(repo => {
-    const info = repo.latestRelease;
-    return {
-      id: repo.id,
-      tagName: info.tag_name,
-      name: info.name,
-      html: info.body,
-      htmlURL: info.html_url,
-      author: info.author.login,
-      authorAvatarURL: info.author.avatar_url,
-      authorHtmlURL: info.author.html_url,
-      createdAt: new Date(info.created_at),
-      publishedAt: new Date(info.published_at)
-    };
-  })
+const reposToModel = createSelector(
+  [selectRepos, selectSort],
+  (repos, sort): RepoListItemModel[] => {
+    // copy original first
+    let sorted = [...repos];
+
+    sorted.sort((repo1, repo2) => {
+      if (sort.order === "alpha") {
+        return repo1.id.localeCompare(repo2.id);
+      } else if (sort.order === "date") {
+        const date1 = new Date(repo1.latestRelease.published_at);
+        const date2 = new Date(repo2.latestRelease.published_at);
+        return date1.getTime() - date2.getTime();
+      }
+      return 0;
+    });
+
+    if (sort.descending) {
+      sorted.reverse();
+    }
+
+    return sorted.map(repo => {
+      const info = repo.latestRelease;
+      return {
+        id: repo.id,
+        tagName: info.tag_name,
+        name: info.name,
+        html: info.body,
+        htmlURL: info.html_url,
+        author: info.author.login,
+        authorAvatarURL: info.author.avatar_url,
+        authorHtmlURL: info.author.html_url,
+        createdAt: new Date(info.created_at),
+        publishedAt: new Date(info.published_at)
+      };
+    });
+  }
 );
 
 const mapStateToProps = (state: RootState): Props => ({

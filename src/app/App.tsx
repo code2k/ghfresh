@@ -7,6 +7,8 @@ import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RefreshButton from "../features/repos/RefreshButton";
 import RepoList from "../features/repos/RepoList";
+import ReposSortButton from "../features/sortRepos/ReposSortButton";
+import SortDirectionToggle from "../features/sortRepos/SortDirectionToggle";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
@@ -28,6 +30,8 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <Container maxWidth="lg">
           <ThemeToggle />
+          <ReposSortButton />
+          <SortDirectionToggle />
           <AddRepo />
           <RepoList />
           <Box marginTop={2}>
