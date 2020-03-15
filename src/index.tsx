@@ -1,9 +1,10 @@
+import { hydrate, render } from "preact";
 import React from "react";
-import { render } from "preact";
 import { Provider } from "react-redux";
+import store from "./app/store";
 import * as serviceWorker from "./serviceWorker";
 
-import store from "./app/store";
+const doRender = process.env.NODE_ENV === "production" ? hydrate : render;
 
 function init() {
   const App = require("./app/App").default;
@@ -15,8 +16,7 @@ function init() {
     </Provider>
   );
 
-  // TODO: hydrate in SSR
-  render(<Element />, rootElement as HTMLElement);
+  doRender(<Element />, rootElement as HTMLElement);
 }
 
 if (process.env.NODE_ENV === "development") {

@@ -1,5 +1,11 @@
-import { Box, Container, CssBaseline, ThemeProvider } from "@material-ui/core";
-import React, { useMemo } from "react";
+import {
+  Box,
+  Container,
+  CssBaseline,
+  NoSsr,
+  ThemeProvider
+} from "@material-ui/core";
+import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AddRepo from "../features/addRepo/AddRepo";
@@ -24,11 +30,16 @@ const App = () => {
     return createTheme(darkMode);
   }, [darkMode]);
 
+  useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side");
+    jssStyles?.parentElement?.removeChild(jssStyles);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <PersistGate loading={null} persistor={persistor}>
-        <Container maxWidth="lg">
+      <Container maxWidth="lg">
+        <PersistGate loading={null} persistor={persistor}>
           <ThemeToggle />
           <ReposSortButton />
           <SortDirectionToggle />
@@ -37,9 +48,11 @@ const App = () => {
           <Box marginTop={2}>
             <RefreshButton />
           </Box>
-        </Container>
+        </PersistGate>
+      </Container>
+      <NoSsr defer>
         <Notifications />
-      </PersistGate>
+      </NoSsr>
     </ThemeProvider>
   );
 };
