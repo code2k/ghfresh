@@ -1,3 +1,5 @@
+import { LatestReleaseType } from "./latestReleaseType";
+
 const API = "https://api.github.com";
 
 export class RepoNotFoundError extends Error {
@@ -7,7 +9,9 @@ export class RepoNotFoundError extends Error {
   }
 }
 
-export const getLatestRelease = async (repo: string) => {
+export const getLatestRelease = async (
+  repo: string
+): Promise<LatestReleaseType> => {
   const url = `${API}/repos/${repo}/releases/latest`;
 
   const resp = await fetch(url);

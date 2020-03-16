@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "../../app/store";
 import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
+import { LatestReleaseType } from "../../github/latestReleaseType";
 import { addNotification } from "../notifications/notificationsSlice";
 
 export interface Repo {
   id: string;
   lastUpdate: number;
-  latestRelease: any;
+  latestRelease: LatestReleaseType;
   loading: boolean;
   error: Error | null;
 }
