@@ -35,12 +35,12 @@ const reposSlice = createSlice({
       }
     },
     updateRepoSuccess(state, action: PayloadAction<Repo>) {
-      const { id, lastUpdate, latestRelease, loading } = action.payload;
+      const { id, lastUpdate, latestRelease } = action.payload;
       const repo = state.find(repo => repo.id === id);
       if (repo) {
         repo.lastUpdate = lastUpdate;
         repo.latestRelease = latestRelease;
-        repo.loading = loading;
+        repo.loading = false;
         repo.error = null;
       }
     },
