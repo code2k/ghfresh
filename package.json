@@ -12,7 +12,7 @@
   "devDependencies": {
     "@craco/craco": "^5.6.3",
     "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^10.0.1",
     "@testing-library/user-event": "^10.0.0",
     "@types/clean-css": "^4.2.1",
     "@types/jest": "^24.0.0",
@@ -25,7 +25,7 @@
     "clean-css": "^4.2.3",
     "jest-fetch-mock": "^3.0.1",
     "preact-render-to-string": "^5.1.4",
-    "react-scripts": "3.4.0",
+    "react-scripts": "3.4.1",
     "typescript": "~3.8.3",
     "webpack-bundle-analyzer": "^3.6.0"
   },
