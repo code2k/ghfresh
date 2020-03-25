@@ -1,30 +1,58 @@
 import {
   Avatar,
-  Button,
   Card,
-  CardActions,
-  CardContent,
   CardHeader,
   Collapse,
   IconButton,
-  makeStyles,
-  Typography
+  makeStyles
 } from "@material-ui/core";
 import clsx from "clsx";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { ExpandMoreIcon } from "../../components/Icons";
+import ExternalLink from "../../components/ExternalLink";
+import { DeleteIcon, ExpandMoreIcon } from "../../components/Icons";
 import Markdown from "../../components/markdown/Markdown";
 import RemoveDialog from "./RemoveDialog";
 import { removeRepo } from "./reposSlice";
 
-const useStyles = makeStyles(({ spacing, transitions }) => ({
-  card: {
-    padding: spacing(0),
-    borderRadius: 4
+// https://day.js.org/docs/en/plugin/relative-time
+dayjs.extend(relativeTime);
+
+const useStyles = makeStyles(({ spacing, transitions, typography }) => ({
+  author: {
+    marginRight: spacing(0.75),
+    display: "flex",
+    alignItems: "center",
+    fontWeight: typography.fontWeightMedium
+  },
+  avatar: {
+    marginRight: spacing(1),
+    width: "24px",
+    height: "24px"
   },
   header: {
-    padding: spacing(1)
+    padding: spacing(2)
+  },
+  repoTitle: {
+    fontSize: "1.25rem"
+  },
+  releaseName: {
+    fontSize: "1rem"
+  },
+  info: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: spacing(2),
+    paddingRight: spacing(1),
+    paddingBottom: spacing(2),
+    fontSize: "0.9375rem"
+  },
+  markdown: {
+    paddingLeft: spacing(2),
+    paddingRight: spacing(2),
+    paddingBottom: spacing(2)
   },
   expand: {
     transform: "rotate(0deg)",
@@ -41,8 +69,7 @@ const useStyles = makeStyles(({ spacing, transitions }) => ({
 export interface RepoListItemModel {
   id: string;
   htmlURL: string;
-  tagName: string;
-  name: string;
+  releaseName: string;
   author: string;
   authorHtmlURL: string;
   authorAvatarURL: string;
@@ -60,6 +87,8 @@ const RepoListItem = ({ repo }: Props) => {
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
+
+  const publishedAt = dayjs(repo.publishedAt);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -79,31 +108,47 @@ const RepoListItem = ({ repo }: Props) => {
   }, [dispatch, repo, setOpenDialog]);
 
   return (
-    <Card className={classes.card} elevation={3}>
+    <Card elevation={3}>
       <CardHeader
-        className={classes.header}
-        avatar={<Avatar src={repo.authorAvatarURL} />}
-        title={repo.id}
-        subheader={repo.name}
+        classes={{
+          root: classes.header,
+          title: classes.repoTitle,
+          subheader: classes.releaseName
+        }}
+        title={
+          <ExternalLink
+            color="textPrimary"
+            href={`https://github.com/${repo.id}`}
+          >
+            {repo.id}
+          </ExternalLink>
+        }
+        subheader={
+          <ExternalLink color="textPrimary" href={repo.htmlURL}>
+            {repo.releaseName}
+          </ExternalLink>
+        }
+        action={
+          <IconButton onClick={handleRemoveClick}>
+            <DeleteIcon />
+          </IconButton>
+        }
       />
-      <CardContent>
-        <Typography component="p">
-          Published at: {repo.publishedAt.toLocaleDateString()}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Button
-          size="small"
-          color="primary"
-          href={repo.htmlURL}
-          target="__blank"
-          rel="noopener"
+      <div className={classes.info}>
+        <ExternalLink
+          className={classes.author}
+          color="textPrimary"
+          href={repo.authorHtmlURL}
         >
-          Github
-        </Button>
-        <Button onClick={handleRemoveClick} size="small" color="primary">
-          Remove
-        </Button>
+          <Avatar
+            classes={{ root: classes.avatar }}
+            alt={repo.author}
+            src={`${repo.authorAvatarURL}&s=24`}
+          />
+          {repo.author}
+        </ExternalLink>{" "}
+        released this&nbsp;
+        <span title={publishedAt.toString()}>{dayjs().to(publishedAt)}</span>.
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
@@ -114,11 +159,14 @@ const RepoListItem = ({ repo }: Props) => {
         >
           <ExpandMoreIcon />
         </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Markdown markdown={repo.html} repoID={repo.id} />
-        </CardContent>
+      </div>
+      <Collapse
+        className={classes.markdown}
+        in={expanded}
+        timeout="auto"
+        unmountOnExit
+      >
+        <Markdown markdown={repo.html} repoID={repo.id} />
       </Collapse>
       <RemoveDialog
         repoID={repo.id}

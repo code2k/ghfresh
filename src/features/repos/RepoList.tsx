@@ -50,8 +50,7 @@ const reposToModel = createSelector(
       const info = repo.latestRelease;
       return {
         id: repo.id,
-        tagName: info.tag_name,
-        name: info.name,
+        releaseName: info.name.length > 0 ? info.name : info.tag_name,
         html: info.body,
         htmlURL: info.html_url,
         author: info.author.login,
