@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../app/rootReducer";
 import { AppDispatch } from "../../app/store";
 import { RefreshIcon } from "../../components/Icons";
-import { updateAll } from "./reposSlice";
+import { reposSelectors, updateAll } from "./reposSlice";
 
 const useStyles = makeStyles(({ palette }) => ({
   root: {
@@ -60,19 +60,13 @@ export const RefreshButton = ({ isLoading, isEmpty, updateAll }: Props) => {
   );
 };
 
-const selectIsLoading = createSelector(
-  (state: RootState) => state.repos,
-  repos => repos.some(repo => repo.loading)
-);
-
-const selectIsEmpty = createSelector(
-  (state: RootState) => state.repos,
-  repos => repos.length === 0
+const selectIsLoading = createSelector(reposSelectors.selectAll, repos =>
+  repos.some(repo => repo.loading)
 );
 
 const mapStateToProps = (state: RootState) => ({
-  isLoading: selectIsLoading(state),
-  isEmpty: selectIsEmpty(state)
+  isLoading: selectIsLoading(state.repos),
+  isEmpty: state.repos.ids.length === 0
 });
 
 const mapDispatch = (dispatch: AppDispatch) => ({

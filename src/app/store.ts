@@ -1,4 +1,9 @@
-import { Action, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import {
+  Action,
+  configureStore,
+  getDefaultMiddleware,
+  Update
+} from "@reduxjs/toolkit";
 import {
   createTransform,
   PERSIST,
@@ -8,7 +13,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { ThunkAction } from "redux-thunk";
-import { Repo, ReposState, updateAll } from "../features/repos/reposSlice";
+import {
+  Repo,
+  reposAdapter,
+  ReposState,
+  updateAll
+} from "../features/repos/reposSlice";
 import rootReducer, { RootState } from "./rootReducer";
 
 type RootReducerType = typeof rootReducer;
@@ -18,13 +28,17 @@ type RootReducerType = typeof rootReducer;
  */
 const cleanReposState = createTransform(
   (state: ReposState) => {
-    return state.map((repo: Repo) => {
+    const updates: Update<Repo>[] = state.ids.map(id => {
       return {
-        ...repo,
-        loading: false,
-        error: null
+        id,
+        changes: {
+          loading: false,
+          error: null
+        }
       };
     });
+
+    return reposAdapter.updateMany(state, updates);
   },
   null,
   { whitelist: ["repos"] }

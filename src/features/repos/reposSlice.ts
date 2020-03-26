@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction
+} from "@reduxjs/toolkit";
 import { AppThunk } from "../../app/store";
 import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
 import { LatestReleaseType } from "../../github/latestReleaseType";
@@ -12,52 +16,51 @@ export interface Repo {
   error: Error | null;
 }
 
-export type ReposState = Repo[];
+export const reposAdapter = createEntityAdapter<Repo>();
 
-const initialState: ReposState = [];
+const initialState = reposAdapter.getInitialState();
+
+export type ReposState = typeof initialState;
+
+export const reposSelectors = reposAdapter.getSelectors();
 
 const reposSlice = createSlice({
   name: "repos",
-  initialState: initialState,
+  initialState,
   reducers: {
-    addRepo(state, action: PayloadAction<Repo>) {
-      state.push(action.payload);
-    },
-    removeRepo(state, action: PayloadAction<string>) {
-      const index = state.findIndex(repo => repo.id === action.payload);
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
-    },
+    addRepo: reposAdapter.addOne,
+
+    removeRepo: reposAdapter.removeOne,
+
     startUpdateRepo(state, action: PayloadAction<string>) {
-      const repo = state.find(repo => repo.id === action.payload);
-      if (repo) {
-        repo.loading = true;
-      }
+      reposAdapter.updateOne(state, {
+        id: action.payload,
+        changes: { loading: true }
+      });
     },
+
     updateRepoSuccess(state, action: PayloadAction<Repo>) {
       const { id, lastUpdate, latestRelease } = action.payload;
-      const repo = state.find(repo => repo.id === id);
-      if (repo) {
-        repo.lastUpdate = lastUpdate;
-        repo.latestRelease = latestRelease;
-        repo.loading = false;
-        repo.error = null;
-      }
+      reposAdapter.updateOne(state, {
+        id,
+        changes: {
+          lastUpdate,
+          latestRelease,
+          loading: false,
+          error: null
+        }
+      });
     },
+
     updateRepoFailed(
       state,
       action: PayloadAction<{ id: string; error: Error }>
     ) {
       const { id, error } = action.payload;
-      const repo = state.find(repo => repo.id === id);
-      if (repo) {
-        repo.error = error;
-      }
+      reposAdapter.updateOne(state, { id, changes: { error, loading: false } });
     },
-    removeAllRepos() {
-      return [];
-    }
+
+    removeAllRepos: reposAdapter.removeAll
   }
 });
 
@@ -87,7 +90,7 @@ export const addNewRepo = (repoID: string): AppThunk => async (
   getState
 ) => {
   // prevent duplicate repositories
-  const exists = getState().repos.some(repo => repo.id === repoID);
+  const exists = getState().repos.ids.some(id => id === repoID);
   if (exists) {
     dispatch(
       addNotification({
@@ -141,8 +144,9 @@ const updateInterval =
 
 export const updateAll: AppThunk = async (dispatch, getState) => {
   const repos = getState().repos;
-  repos.forEach(repo => {
-    if (repo.loading) {
+  repos.ids.forEach(id => {
+    const repo = repos.entities[id];
+    if (!repo || repo.loading) {
       return;
     }
     const waitPeriod = new Date().getTime() - repo.lastUpdate;

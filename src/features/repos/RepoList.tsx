@@ -1,10 +1,10 @@
-import React from "react";
-import { createSelector } from "@reduxjs/toolkit";
-import { connect } from "react-redux";
 import { Box } from "@material-ui/core";
-
-import RepoListItem, { RepoListItemModel } from "./RepoListItem";
+import { createSelector } from "@reduxjs/toolkit";
+import React from "react";
+import { connect } from "react-redux";
 import { RootState } from "../../app/rootReducer";
+import RepoListItem, { RepoListItemModel } from "./RepoListItem";
+import { reposSelectors } from "./reposSlice";
 
 interface Props {
   repos: RepoListItemModel[];
@@ -29,7 +29,7 @@ const reposToModel = createSelector(
   [selectRepos, selectSort],
   (repos, sort): RepoListItemModel[] => {
     // copy original first
-    let sorted = [...repos];
+    let sorted = [...reposSelectors.selectAll(repos)];
 
     sorted.sort((repo1, repo2) => {
       if (sort.order === "alpha") {
