@@ -14,7 +14,7 @@ const RepoList = ({ repos }: Props) => {
   return (
     <Box mt={4}>
       {repos.map(repo => (
-        <Box mb={3}>
+        <Box key={repo.id} mb={3}>
           <RepoListItem repo={repo} />
         </Box>
       ))}
