@@ -46,6 +46,7 @@ export const RefreshButton = ({ isLoading, isEmpty, updateAll }: Props) => {
     <Tooltip className={classes.root} title="Update all repositories">
       <span>
         <IconButton
+          color="inherit"
           className={classes.button}
           disabled={isLoading || isEmpty}
           onClick={onClick}

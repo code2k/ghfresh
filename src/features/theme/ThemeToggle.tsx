@@ -19,7 +19,7 @@ export const ThemeToggle = ({ darkMode, toggleTheme }: Props) => {
 
   return (
     <Tooltip title="Toggle light/dark theme">
-      <IconButton onClick={onClick}>
+      <IconButton color="inherit" onClick={onClick}>
         {darkMode ? <ThemeDarkIcon /> : <ThemeLightIcon />}
       </IconButton>
     </Tooltip>
