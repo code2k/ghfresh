@@ -22,7 +22,7 @@ export const getLatestRelease = async (repo: string) => {
       if (json) {
         resolve(json);
       } else {
-        reject(new RepoNotFoundError(repo));
+        reject(new RepoNotFoundError(`Mock "${repo}" does not exist`));
       }
     }, 1);
   });
