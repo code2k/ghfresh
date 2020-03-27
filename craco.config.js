@@ -29,6 +29,7 @@ module.exports = {
   devServer: {
     open: false
   },
+
   eslint: {
     configure: {
       settings: {
@@ -38,6 +39,7 @@ module.exports = {
       }
     }
   },
+
   jest: {
     configure: {
       moduleNameMapper: {
