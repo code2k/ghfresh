@@ -4,11 +4,12 @@ import {
   IconButton,
   makeStyles,
   Toolbar,
-  Typography,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@material-ui/core";
 import { blue, grey } from "@material-ui/core/colors";
 import React from "react";
+import AddRepo from "../features/addRepo/AddRepo";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import { GitHubIcon } from "./Icons";
 
@@ -30,6 +31,7 @@ const Header = () => {
           <Typography className={classes.title} variant="h6" noWrap>
             GHFresh
           </Typography>
+          <AddRepo />
           <ThemeToggle />
           <Tooltip title="GitHub">
             <IconButton

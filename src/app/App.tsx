@@ -9,7 +9,6 @@ import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Header from "../components/Header";
-import AddRepo from "../features/addRepo/AddRepo";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RefreshButton from "../features/repos/RefreshButton";
@@ -43,7 +42,6 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <ReposSortButton />
           <SortDirectionToggle />
-          <AddRepo />
           <RepoList />
           <Box marginTop={2}>
             <RefreshButton />

@@ -1,71 +1,40 @@
-import { Box, Button, makeStyles, TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
-import React, { ChangeEvent, FormEvent, useMemo } from "react";
+import { IconButton, Tooltip } from "@material-ui/core";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import isRepoString from "../../github/isRepoString";
+import { AddIcon } from "../../components/Icons";
 import { addNewRepo } from "../repos/reposSlice";
-import useRepoSearch from "./useRepoSearch";
-
-const useStyles = makeStyles(theme => ({
-  form: {
-    width: 400
-  },
-  button: {
-    // float: "right",
-    // marginLeft: theme.spacing(1)
-  }
-}));
+import AddRepoDialog from "./AddRepoDialog";
 
 const AddRepo = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
-  const [repo, setRepo, suggestions] = useRepoSearch("");
+  const [showDialog, setShowDialog] = useState(false);
 
-  const isValid = useMemo(() => isRepoString(repo), [repo]);
-
-  const onChange = (e: ChangeEvent<{}>, value: string | null) => {
-    setRepo(value || "");
+  const handleCancel = () => {
+    setShowDialog(false);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!isValid) {
-      return;
-    }
+  const handleAdd = (repo: string) => {
+    setShowDialog(false);
     dispatch(addNewRepo(repo));
-    setRepo("");
+  };
+
+  const openDialog = () => {
+    setShowDialog(true);
   };
 
   return (
-    <Box>
-      <form className={classes.form} onSubmit={onSubmit}>
-        <Autocomplete
-          inputValue={repo}
-          onInputChange={onChange}
-          size="small"
-          options={suggestions}
-          clearOnEscape
-          freeSolo
-          disableListWrap
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="Add GitHub repo"
-              margin="normal"
-              inputProps={params.inputProps}
-            />
-          )}
-        />
-        <Button
-          disabled={!isValid}
-          className={classes.button}
-          variant="outlined"
-          type="submit"
-        >
-          Add
-        </Button>
-      </form>
-    </Box>
+    <>
+      <Tooltip title="Add GitHub repository">
+        <IconButton color="inherit" onClick={openDialog}>
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
+      <AddRepoDialog
+        open={showDialog}
+        handleCancel={handleCancel}
+        handleAdd={handleAdd}
+      />
+    </>
   );
 };
 
