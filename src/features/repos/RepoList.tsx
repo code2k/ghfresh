@@ -12,7 +12,7 @@ interface Props {
 
 const RepoList = ({ repos }: Props) => {
   return (
-    <Box mt={4}>
+    <Box mt={3}>
       {repos.map(repo => (
         <Box key={repo.id} mb={3}>
           <RepoListItem repo={repo} />

@@ -11,8 +11,7 @@ import Header from "../components/Header";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RepoList from "../features/repos/RepoList";
-import ReposSortButton from "../features/sortRepos/ReposSortButton";
-import SortDirectionToggle from "../features/sortRepos/SortDirectionToggle";
+import ReposListHeader from "../features/repos/ReposListHeader";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
 import createTheme from "./theme";
@@ -38,8 +37,7 @@ const App = () => {
       <Header />
       <Container maxWidth="md">
         <PersistGate loading={null} persistor={persistor}>
-          <ReposSortButton />
-          <SortDirectionToggle />
+          <ReposListHeader />
           <RepoList />
         </PersistGate>
       </Container>
