@@ -10,6 +10,7 @@ import {
 import { blue, grey } from "@material-ui/core/colors";
 import React from "react";
 import AddRepo from "../features/addRepo/AddRepo";
+import RefreshButton from "../features/repos/RefreshButton";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import { GitHubIcon } from "./Icons";
 
@@ -27,10 +28,11 @@ const Header = () => {
   return (
     <AppBar className={classes.appBar} position="sticky">
       <Container maxWidth="md">
-        <Toolbar variant="dense" disableGutters>
+        <Toolbar disableGutters>
           <Typography className={classes.title} variant="h6" noWrap>
             GHFresh
           </Typography>
+          <RefreshButton />
           <AddRepo />
           <ThemeToggle />
           <Tooltip title="GitHub">

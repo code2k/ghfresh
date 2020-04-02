@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   CssBaseline,
   NoSsr,
@@ -11,7 +10,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import Header from "../components/Header";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
-import RefreshButton from "../features/repos/RefreshButton";
 import RepoList from "../features/repos/RepoList";
 import ReposSortButton from "../features/sortRepos/ReposSortButton";
 import SortDirectionToggle from "../features/sortRepos/SortDirectionToggle";
@@ -43,9 +41,6 @@ const App = () => {
           <ReposSortButton />
           <SortDirectionToggle />
           <RepoList />
-          <Box marginTop={2}>
-            <RefreshButton />
-          </Box>
         </PersistGate>
       </Container>
       <NoSsr defer>

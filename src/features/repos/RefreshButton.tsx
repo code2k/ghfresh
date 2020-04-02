@@ -21,7 +21,7 @@ const useStyles = makeStyles(({ palette }) => ({
     alignItems: "center"
   },
   progress: {
-    color: palette.primary.main,
+    color: palette.type === "light" ? palette.info.main : palette.info.dark,
     position: "absolute",
     top: 0,
     left: 0,
