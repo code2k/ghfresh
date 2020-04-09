@@ -5,22 +5,22 @@ import {
   makeStyles,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import { blue, grey } from "@material-ui/core/colors";
+import { blue } from "@material-ui/core/colors";
 import React from "react";
 import AddRepo from "../features/addRepo/AddRepo";
 import RefreshButton from "../features/repos/RefreshButton";
 import ThemeToggle from "../features/theme/ThemeToggle";
 import { GitHubIcon } from "./Icons";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: theme.palette.type === "light" ? blue[700] : grey[800]
+    backgroundColor: theme.palette.type === "light" ? blue[700] : blue[900],
   },
   title: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 const Header = () => {
