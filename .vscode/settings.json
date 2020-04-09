@@ -1,3 +1,9 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "files.exclude": {
+        ".prerender": true,
+        ".vscode": true,
+        "build": true,
+        "node_modules": true
+    }
 }
