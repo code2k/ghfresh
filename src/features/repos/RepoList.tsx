@@ -12,8 +12,8 @@ interface Props {
 
 const RepoList = ({ repos }: Props) => {
   return (
-    <Box mt={3}>
-      {repos.map(repo => (
+    <Box mt={3} mb={6}>
+      {repos.map((repo) => (
         <Box key={repo.id} mb={3}>
           <RepoListItem repo={repo} />
         </Box>
@@ -46,7 +46,7 @@ const reposToModel = createSelector(
       sorted.reverse();
     }
 
-    return sorted.map(repo => {
+    return sorted.map((repo) => {
       const info = repo.latestRelease;
       return {
         id: repo.id,
@@ -57,14 +57,14 @@ const reposToModel = createSelector(
         authorAvatarURL: info.author.avatar_url,
         authorHtmlURL: info.author.html_url,
         createdAt: new Date(info.created_at),
-        publishedAt: new Date(info.published_at)
+        publishedAt: new Date(info.published_at),
       };
     });
   }
 );
 
 const mapStateToProps = (state: RootState): Props => ({
-  repos: reposToModel(state)
+  repos: reposToModel(state),
 });
 
 export default connect(mapStateToProps)(RepoList);
