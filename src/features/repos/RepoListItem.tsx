@@ -4,7 +4,7 @@ import {
   CardHeader,
   Collapse,
   IconButton,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -22,48 +22,48 @@ dayjs.extend(relativeTime);
 
 const useStyles = makeStyles(({ spacing, transitions, typography }) => ({
   author: {
-    marginRight: spacing(0.75),
-    display: "flex",
-    alignItems: "center",
-    fontWeight: typography.fontWeightMedium
+    fontWeight: typography.fontWeightMedium,
   },
   avatar: {
+    display: "inline-block",
     marginRight: spacing(1),
     width: "24px",
-    height: "24px"
+    height: "24px",
   },
   header: {
-    padding: spacing(2)
+    padding: spacing(2),
   },
   repoTitle: {
-    fontSize: "1.25rem"
+    fontSize: "1.25rem",
   },
   releaseName: {
-    fontSize: "1rem"
+    fontSize: "1rem",
   },
-  info: {
+  footer: {
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
     paddingLeft: spacing(2),
     paddingRight: spacing(1),
-    paddingBottom: spacing(2),
-    fontSize: "0.9375rem"
+    paddingBottom: spacing(1),
+  },
+  info: {
+    fontSize: "0.9375rem",
   },
   markdown: {
     paddingLeft: spacing(2),
     paddingRight: spacing(2),
-    paddingBottom: spacing(2)
+    paddingBottom: spacing(2),
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "auto",
     transition: transitions.create("transform", {
-      duration: transitions.duration.shortest
-    })
+      duration: transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
-  }
+    transform: "rotate(180deg)",
+  },
 }));
 
 export interface RepoListItemModel {
@@ -113,7 +113,7 @@ const RepoListItem = ({ repo }: Props) => {
         classes={{
           root: classes.header,
           title: classes.repoTitle,
-          subheader: classes.releaseName
+          subheader: classes.releaseName,
         }}
         title={
           <ExternalLink
@@ -134,24 +134,26 @@ const RepoListItem = ({ repo }: Props) => {
           </IconButton>
         }
       />
-      <div className={classes.info}>
-        <ExternalLink
-          className={classes.author}
-          color="textPrimary"
-          href={repo.authorHtmlURL}
-        >
-          <Avatar
-            classes={{ root: classes.avatar }}
-            alt={repo.author}
-            src={`${repo.authorAvatarURL}&s=24`}
-          />
-          {repo.author}
-        </ExternalLink>{" "}
-        released this&nbsp;
-        <span title={publishedAt.toString()}>{dayjs().to(publishedAt)}</span>.
+      <div className={classes.footer}>
+        <div className={classes.info}>
+          <ExternalLink
+            className={classes.author}
+            color="textPrimary"
+            href={repo.authorHtmlURL}
+          >
+            <Avatar
+              className={classes.avatar}
+              alt={repo.author}
+              src={`${repo.authorAvatarURL}&s=24`}
+            />
+            {repo.author}
+          </ExternalLink>{" "}
+          released this{" "}
+          <span title={publishedAt.toString()}>{dayjs().to(publishedAt)}</span>.
+        </div>
         <IconButton
           className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
+            [classes.expandOpen]: expanded,
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
