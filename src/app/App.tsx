@@ -8,6 +8,7 @@ import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Header from "../components/Header";
+import NoScript from "../components/NoScript";
 import Welcome from "../components/Welcome";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
@@ -41,6 +42,7 @@ const App = () => {
       <CssBaseline />
       <Header />
       <Container maxWidth="md">
+        <NoScript />
         <PersistGate loading={null} persistor={persistor}>
           {repos.ids.length === 0 ? (
             <Welcome addExamples={addExamples} />
