@@ -42,8 +42,11 @@ const App = () => {
       <Header />
       <Container maxWidth="md">
         <PersistGate loading={null} persistor={persistor}>
-          <ReposListHeader />
-          {repos.ids.length === 0 && <Welcome addExamples={addExamples} />}
+          {repos.ids.length === 0 ? (
+            <Welcome addExamples={addExamples} />
+          ) : (
+            <ReposListHeader />
+          )}
           <RepoList />
         </PersistGate>
       </Container>
