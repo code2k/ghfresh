@@ -40,7 +40,7 @@ const Header = () => {
               color="inherit"
               edge="end"
               component="a"
-              href="https://github.com/code2k"
+              href="https://github.com/code2k/ghfresh"
               target="__blank"
               rel="noopener"
               aria-label="github"
