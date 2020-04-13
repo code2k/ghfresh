@@ -9,6 +9,11 @@ export class RepoNotFoundError extends Error {
   }
 }
 
+/**
+ * https://developer.github.com/v3/repos/releases/#get-the-latest-release
+ *
+ * Rate limit is 60 request per hour
+ */
 export const getLatestRelease = async (
   repo: string
 ): Promise<LatestReleaseType> => {
@@ -30,6 +35,11 @@ export const getLatestRelease = async (
   return json;
 };
 
+/**
+ * https://developer.github.com/v3/search/#search-repositories
+ *
+ * Rate limit is 10 request per minute
+ */
 export const searchRepos = async (repo: string): Promise<string[]> => {
   const url = `${API}/search/repositories?q=${repo}`;
 
