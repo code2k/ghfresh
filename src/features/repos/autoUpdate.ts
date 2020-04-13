@@ -5,9 +5,9 @@ import { updateAll } from "./reposSlice";
 /**
  * Auto update interval.
  *
- * Default is 1 minute
+ * Default is 1 hour
  */
-const updateInvertval = parseInt(process.env.REACT_APP_AUTO || "60") * 1000;
+const updateInvertval = parseInt(process.env.REACT_APP_AUTO || "3600") * 1000;
 
 const useAutoUpdate = () => {
   const timer = useRef<NodeJS.Timeout>();

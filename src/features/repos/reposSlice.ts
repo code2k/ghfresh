@@ -1,7 +1,7 @@
 import {
   createEntityAdapter,
   createSlice,
-  PayloadAction
+  PayloadAction,
 } from "@reduxjs/toolkit";
 import { AppThunk } from "../../app/store";
 import { getLatestRelease, RepoNotFoundError } from "../../github/githubAPI";
@@ -35,7 +35,7 @@ const reposSlice = createSlice({
     startUpdateRepo(state, action: PayloadAction<string>) {
       reposAdapter.updateOne(state, {
         id: action.payload,
-        changes: { loading: true }
+        changes: { loading: true },
       });
     },
 
@@ -47,8 +47,8 @@ const reposSlice = createSlice({
           lastUpdate,
           latestRelease,
           loading: false,
-          error: null
-        }
+          error: null,
+        },
       });
     },
 
@@ -60,8 +60,8 @@ const reposSlice = createSlice({
       reposAdapter.updateOne(state, { id, changes: { error, loading: false } });
     },
 
-    removeAllRepos: reposAdapter.removeAll
-  }
+    removeAllRepos: reposAdapter.removeAll,
+  },
 });
 
 export const {
@@ -70,7 +70,7 @@ export const {
   updateRepoSuccess,
   updateRepoFailed,
   removeRepo,
-  removeAllRepos
+  removeAllRepos,
 } = reposSlice.actions;
 
 export default reposSlice.reducer;
@@ -81,7 +81,7 @@ const responseToRepo = (id: string, response: any): Repo => {
     lastUpdate: new Date().getTime(),
     latestRelease: response,
     loading: false,
-    error: null
+    error: null,
   };
 };
 
@@ -90,12 +90,12 @@ export const addNewRepo = (repoID: string): AppThunk => async (
   getState
 ) => {
   // prevent duplicate repositories
-  const exists = getState().repos.ids.some(id => id === repoID);
+  const exists = getState().repos.ids.some((id) => id === repoID);
   if (exists) {
     dispatch(
       addNotification({
         message: `Repository "${repoID} already exists`,
-        type: "info"
+        type: "info",
       })
     );
     return;
@@ -117,9 +117,9 @@ export const addNewRepo = (repoID: string): AppThunk => async (
   }
 };
 
-export const updateLatestRelease = (
-  repoID: string
-): AppThunk => async dispatch => {
+export const updateLatestRelease = (repoID: string): AppThunk => async (
+  dispatch
+) => {
   try {
     dispatch(startUpdateRepo(repoID));
     const latestRelease = await getLatestRelease(repoID);
@@ -129,22 +129,22 @@ export const updateLatestRelease = (
     dispatch(
       addNotification({
         message: `Update for "${repoID}" failed`,
-        type: "error"
+        type: "error",
       })
     );
   }
 };
 
 /**
- * Minimum time between repository updates. Defaults to one 1 hour.
+ * Minimum time between repository updates. Defaults to 30 minutes.
  * Configure value in .env
  */
 const updateInterval =
-  parseInt(process.env.REACT_APP_UPDATE_INTERVAL || "3600") * 1000;
+  parseInt(process.env.REACT_APP_UPDATE_INTERVAL || "1800") * 1000;
 
 export const updateAll: AppThunk = async (dispatch, getState) => {
   const repos = getState().repos;
-  repos.ids.forEach(id => {
+  repos.ids.forEach((id) => {
     const repo = repos.entities[id];
     if (!repo || repo.loading) {
       return;
