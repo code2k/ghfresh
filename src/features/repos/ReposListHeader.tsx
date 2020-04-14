@@ -8,13 +8,14 @@ const useStyles = makeStyles(({ spacing, typography }) => ({
     display: "flex",
     alignItems: "center",
     marginTop: spacing(4),
+    marginBottom: spacing(3),
     paddingLeft: spacing(2),
-    paddingRight: spacing(1)
+    paddingRight: spacing(1),
   },
   title: {
     flexGrow: 1,
-    fontWeight: typography.fontWeightMedium
-  }
+    fontWeight: typography.fontWeightMedium,
+  },
 }));
 
 export const ReposListHeader = () => {
