@@ -13,7 +13,6 @@ import Welcome from "../components/Welcome";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RepoList from "../features/repos/RepoList";
-import ReposListHeader from "../features/repos/ReposListHeader";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
 import createTheme from "./theme";
@@ -47,9 +46,8 @@ const App = () => {
           {repos.ids.length === 0 ? (
             <Welcome addExamples={addExamples} />
           ) : (
-            <ReposListHeader />
+            <RepoList />
           )}
-          <RepoList />
         </PersistGate>
       </Container>
       <NoSsr defer>

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { RootState } from "../../app/rootReducer";
 import RepoListItem, { RepoListItemModel } from "./RepoListItem";
 import { reposSelectors } from "./reposSlice";
+import ReposListHeader from "./ReposListHeader";
 
 interface Props {
   repos: RepoListItemModel[];
@@ -12,13 +13,16 @@ interface Props {
 
 const RepoList = ({ repos }: Props) => {
   return (
-    <Box mt={3} mb={6}>
-      {repos.map((repo) => (
-        <Box key={repo.id} mb={3}>
-          <RepoListItem repo={repo} />
-        </Box>
-      ))}
-    </Box>
+    <>
+      <ReposListHeader />
+      <Box mt={3} mb={6}>
+        {repos.map((repo) => (
+          <Box key={repo.id} mb={3}>
+            <RepoListItem repo={repo} />
+          </Box>
+        ))}
+      </Box>
+    </>
   );
 };
 
