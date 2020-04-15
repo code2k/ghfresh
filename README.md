@@ -1,5 +1,7 @@
 # GHFresh - Monitor GitHub repositories
 
+![CI](https://github.com/code2k/ghfresh/workflows/CI/badge.svg?branch=master&event=push)
+
 GHFresh is a SPA to monitor GitHub repositories for new releases.
 
 Visit [https://code2k.github.io/ghfresh/](https://code2k.github.io/ghfresh/) and
