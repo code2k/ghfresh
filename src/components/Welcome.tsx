@@ -11,23 +11,30 @@ import React from "react";
 import AddRepo from "../features/addRepo/AddRepo";
 import { PlaylistAddIcon } from "./Icons";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(({ spacing, typography }) => ({
   root: {
-    marginTop: theme.spacing(4),
+    marginTop: spacing(4),
     textAlign: "center",
   },
   action: {
-    marginTop: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginTop: spacing(4),
+    marginLeft: spacing(2),
+    marginRight: spacing(2),
     display: "inline-block",
-    padding: theme.spacing(2),
+    padding: spacing(2),
     width: "150px",
     textAlign: "center",
   },
+  info: {
+    marginTop: spacing(4),
+    fontStyle: "italic",
+  },
+  listItem: {
+    fontSize: "1rem",
+  },
   title: {
-    fontWeight: theme.typography.fontWeightMedium,
-    marginBottom: theme.spacing(1),
+    fontWeight: typography.fontWeightMedium,
+    marginBottom: spacing(1),
   },
 }));
 
@@ -41,7 +48,7 @@ const Welcome = ({ addExamples }: Props) => {
     <Fade in>
       <Box className={classes.root}>
         <Typography variant="h5">
-          Monitor GitHub repositories for new releases:
+          Monitor GitHub repositories for new releases
         </Typography>
         <Box>
           <Paper className={classes.action} elevation={2}>
@@ -61,6 +68,23 @@ const Welcome = ({ addExamples }: Props) => {
             </Tooltip>
           </Paper>
         </Box>
+        <Typography variant="h6" className={classes.info} noWrap>
+          How does this work?
+        </Typography>
+        <ol>
+          <li className={classes.listItem}>Add one or more repositories</li>
+          <li className={classes.listItem}>Bookmark this page</li>
+          <li className={classes.listItem}>
+            Visit this page to see what's new
+          </li>
+        </ol>
+        <Typography variant="h6" className={classes.info} noWrap>
+          Note:
+        </Typography>
+        <Typography variant="body1" noWrap>
+          Your data is stored in your browser's local storage. Only you can
+          access it.
+        </Typography>
       </Box>
     </Fade>
   );
