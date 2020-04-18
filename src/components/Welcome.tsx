@@ -29,6 +29,9 @@ const useStyles = makeStyles(({ spacing, typography }) => ({
     marginTop: spacing(4),
     fontStyle: "italic",
   },
+  list: {
+    listStylePosition: "inside",
+  },
   listItem: {
     fontSize: "1rem",
   },
@@ -71,7 +74,7 @@ const Welcome = ({ addExamples }: Props) => {
         <Typography variant="h6" className={classes.info} noWrap>
           How does this work?
         </Typography>
-        <ol>
+        <ol className={classes.list}>
           <li className={classes.listItem}>Add one or more repositories</li>
           <li className={classes.listItem}>Bookmark this page</li>
           <li className={classes.listItem}>
