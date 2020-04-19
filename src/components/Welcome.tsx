@@ -30,6 +30,7 @@ const useStyles = makeStyles(({ spacing, typography }) => ({
     fontStyle: "italic",
   },
   list: {
+    paddingLeft: 0,
     listStylePosition: "inside",
   },
   listItem: {
@@ -84,7 +85,7 @@ const Welcome = ({ addExamples }: Props) => {
         <Typography variant="h6" className={classes.info} noWrap>
           Note:
         </Typography>
-        <Typography variant="body1" noWrap>
+        <Typography variant="body1">
           Your data is stored in your browser's local storage. Only you can
           access it.
         </Typography>
