@@ -37,7 +37,7 @@
     "@material-ui/lab": "^4.0.0-alpha.45",
     "@reduxjs/toolkit": "^1.2.5",
     "dayjs": "^1.8.23",
-    "marked": "^0.8.0",
+    "marked": "^1.0.0",
     "preact": "^10.3.3",
     "react-redux": "^7.2.0",
     "redux-persist": "^6.0.0",
