@@ -2,14 +2,14 @@ import {
   Action,
   configureStore,
   getDefaultMiddleware,
-  Update
+  Update,
 } from "@reduxjs/toolkit";
 import {
   createTransform,
   PERSIST,
   PersistConfig,
   persistReducer,
-  persistStore
+  persistStore,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { ThunkAction } from "redux-thunk";
@@ -17,7 +17,7 @@ import {
   Repo,
   reposAdapter,
   ReposState,
-  updateAll
+  updateAll,
 } from "../features/repos/reposSlice";
 import rootReducer, { RootState } from "./rootReducer";
 
@@ -28,13 +28,13 @@ type RootReducerType = typeof rootReducer;
  */
 const cleanReposState = createTransform(
   (state: ReposState) => {
-    const updates: Update<Repo>[] = state.ids.map(id => {
+    const updates: Update<Repo>[] = state.ids.map((id) => {
       return {
         id,
         changes: {
           loading: false,
-          error: null
-        }
+          error: null,
+        },
       };
     });
 
@@ -47,8 +47,8 @@ const cleanReposState = createTransform(
 const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
-  blacklist: ["notifications"],
-  transforms: [cleanReposState]
+  blacklist: ["notifications", "update"],
+  transforms: [cleanReposState],
 };
 
 // persistReducer doesn't work nice with typescript -> brutal cast it
@@ -62,9 +62,9 @@ const store = configureStore({
   devTools: process.env.NODE_ENV === "development",
   middleware: getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: [PERSIST] // needed for redux-persist
-    }
-  })
+      ignoredActions: [PERSIST], // needed for redux-persist
+    },
+  }),
 });
 
 if (process.env.NODE_ENV === "development" && module.hot) {

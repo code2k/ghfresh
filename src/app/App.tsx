@@ -13,6 +13,7 @@ import Welcome from "../components/Welcome";
 import Notifications from "../features/notifications/Notifications";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RepoList from "../features/repos/RepoList";
+import UpdateNotification from "../features/update/UpdateNotification";
 import { RootState } from "./rootReducer";
 import { persistor } from "./store";
 import createTheme from "./theme";
@@ -20,10 +21,13 @@ import useExamples from "./useExamples";
 
 const selectDarkMode = (state: RootState) => state.theme.darkMode;
 const selectRepos = (state: RootState) => state.repos;
+const selectUpdateAvailable = (state: RootState) =>
+  state.update.updateAvailable;
 
 const App = () => {
   useAutoUpdate();
   const darkMode = useSelector(selectDarkMode);
+  const updateAvailable = useSelector(selectUpdateAvailable);
   const repos = useSelector(selectRepos);
   const addExamples = useExamples();
 
@@ -42,6 +46,7 @@ const App = () => {
       <Header />
       <Container maxWidth="md">
         <NoScript />
+        {updateAvailable && <UpdateNotification />}
         <PersistGate loading={null} persistor={persistor}>
           {repos.ids.length === 0 ? (
             <Welcome addExamples={addExamples} />

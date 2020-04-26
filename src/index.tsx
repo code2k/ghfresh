@@ -2,6 +2,7 @@ import { hydrate, render } from "preact";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "./app/store";
+import { setUpdateAvailable } from "./features/update/updateSlice";
 import * as serviceWorker from "./serviceWorker";
 
 const doRender = process.env.NODE_ENV === "production" ? hydrate : render;
@@ -28,7 +29,9 @@ if (process.env.NODE_ENV === "development") {
 
 init();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register({
+  onUpdate: (registration) => {
+    store.dispatch(setUpdateAvailable(true));
+    registration?.waiting?.postMessage({ type: "SKIP_WAITING" });
+  },
+});
