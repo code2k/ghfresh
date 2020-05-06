@@ -4,10 +4,11 @@ import { searchRepos } from "../../github/githubAPI";
 
 const useRepoSearch = (
   initialValue: string
-): [string, Dispatch<string>, string[]] => {
+): [string, Dispatch<string>, string[], boolean] => {
   const [input, setInput] = useState<string>(initialValue);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [debouncedInput] = useDebounce(input, 500);
+  const [loading, setLoading] = useState(false);
 
   // remove suggestions if the input is to short
   useEffect(() => {
@@ -22,6 +23,8 @@ const useRepoSearch = (
       return;
     }
 
+    setLoading(true);
+
     (async () => {
       try {
         const results = await searchRepos(debouncedInput);
@@ -29,10 +32,11 @@ const useRepoSearch = (
       } catch (err) {
         setSuggestions([err]);
       }
+      setLoading(false);
     })();
   }, [debouncedInput]);
 
-  return [input, setInput, suggestions];
+  return [input, setInput, suggestions, loading];
 };
 
 export default useRepoSearch;

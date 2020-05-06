@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import React, { ChangeEvent, FormEvent, useMemo } from "react";
@@ -17,11 +17,11 @@ interface Props {
 }
 
 const AddRepoDialog = ({ open, handleAdd, handleCancel }: Props) => {
-  const [repo, setRepo, suggestions] = useRepoSearch("");
+  const [repo, setRepo, suggestions, isLoading] = useRepoSearch("");
 
   const isValid = useMemo(() => isRepoString(repo), [repo]);
 
-  const onChange = (e: ChangeEvent<{}>, value: string | null) => {
+  const onChange = (_e: ChangeEvent<{}>, value: string | null) => {
     setRepo(value || "");
   };
 
@@ -57,8 +57,10 @@ const AddRepoDialog = ({ open, handleAdd, handleCancel }: Props) => {
             options={suggestions}
             clearOnEscape
             freeSolo
+            loading={isLoading}
+            loadingText="Searching..."
             disableListWrap
-            renderInput={params => (
+            renderInput={(params) => (
               <TextField
                 {...params}
                 autoFocus
