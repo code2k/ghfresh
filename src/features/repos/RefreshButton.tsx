@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 import { createSelector } from "@reduxjs/toolkit";
 import React from "react";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { RootState } from "../../app/rootReducer";
 import { AppDispatch } from "../../app/store";
 import { RefreshIcon } from "../../components/Icons";
@@ -31,13 +31,12 @@ const useStyles = makeStyles(({ palette }) => ({
 
 interface Props {
   isLoading: boolean;
-  isEmpty: boolean;
+  disabled?: boolean;
   updateAll: () => void;
 }
 
-export const RefreshButton = ({ isLoading, isEmpty, updateAll }: Props) => {
+export const RefreshButton = ({ isLoading, disabled, updateAll }: Props) => {
   const classes = useStyles();
-  const online = useSelector((state: RootState) => state.online);
 
   const onClick = () => {
     updateAll();
@@ -49,7 +48,7 @@ export const RefreshButton = ({ isLoading, isEmpty, updateAll }: Props) => {
         <IconButton
           color="inherit"
           className={classes.button}
-          disabled={isLoading || isEmpty || !online}
+          disabled={isLoading || disabled}
           onClick={onClick}
         >
           <RefreshIcon />
@@ -68,7 +67,7 @@ const selectIsLoading = createSelector(reposSelectors.selectAll, (repos) =>
 
 const mapStateToProps = (state: RootState) => ({
   isLoading: selectIsLoading(state.repos),
-  isEmpty: state.repos.ids.length === 0,
+  disabled: state.repos.ids.length === 0 || !state.online,
 });
 
 const mapDispatch = (dispatch: AppDispatch) => ({
