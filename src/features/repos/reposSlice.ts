@@ -89,6 +89,9 @@ export const addNewRepo = (repoID: string): AppThunk => async (
   dispatch,
   getState
 ) => {
+  if (!getState().online) {
+    return;
+  }
   // prevent duplicate repositories
   const exists = getState().repos.ids.some((id) => id === repoID);
   if (exists) {
@@ -118,8 +121,12 @@ export const addNewRepo = (repoID: string): AppThunk => async (
 };
 
 export const updateLatestRelease = (repoID: string): AppThunk => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
+  if (!getState().online) {
+    return;
+  }
   try {
     dispatch(startUpdateRepo(repoID));
     const latestRelease = await getLatestRelease(repoID);
@@ -143,6 +150,9 @@ const updateInterval =
   parseInt(process.env.REACT_APP_UPDATE_INTERVAL || "1800") * 1000;
 
 export const updateAll: AppThunk = async (dispatch, getState) => {
+  if (!getState().online) {
+    return;
+  }
   const repos = getState().repos;
   repos.ids.forEach((id) => {
     const repo = repos.entities[id];

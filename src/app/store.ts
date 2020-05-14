@@ -47,7 +47,7 @@ const cleanReposState = createTransform(
 const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
-  blacklist: ["notifications", "update"],
+  blacklist: ["notifications", "update", "online"],
   transforms: [cleanReposState],
 };
 
@@ -82,5 +82,7 @@ export const persistor = persistStore(store, null, () => {
 export type AppDispatch = typeof store.dispatch;
 
 export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
+
+export type StoreType = typeof store;
 
 export default store;

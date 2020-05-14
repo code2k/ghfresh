@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/rootReducer";
 import AddRepo from "../features/addRepo/AddRepo";
 import { PlaylistAddIcon } from "./Icons";
 
@@ -48,6 +50,8 @@ interface Props {
 
 const Welcome = ({ addExamples }: Props) => {
   const classes = useStyles();
+  const online = useSelector((state: RootState) => state.online);
+
   return (
     <Fade in>
       <Box className={classes.root}>
@@ -66,7 +70,11 @@ const Welcome = ({ addExamples }: Props) => {
               Add examples
             </Typography>
             <Tooltip title="Add example repositories">
-              <IconButton color="inherit" onClick={addExamples}>
+              <IconButton
+                color="inherit"
+                onClick={addExamples}
+                disabled={!online}
+              >
                 <PlaylistAddIcon />
               </IconButton>
             </Tooltip>

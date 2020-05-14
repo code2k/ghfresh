@@ -1,6 +1,7 @@
 import { IconButton, Tooltip } from "@material-ui/core";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/rootReducer";
 import { AddIcon } from "../../components/Icons";
 import { addNewRepo } from "../repos/reposSlice";
 import AddRepoDialog from "./AddRepoDialog";
@@ -8,6 +9,15 @@ import AddRepoDialog from "./AddRepoDialog";
 const AddRepo = () => {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
+  const online = useSelector((state: RootState) => state.online);
+
+  useEffect(() => {
+    if (!online && showDialog) {
+      // application has entered offline state
+      // -> close dialog
+      setShowDialog(false);
+    }
+  }, [online, showDialog]);
 
   const handleCancel = () => {
     setShowDialog(false);
@@ -25,7 +35,7 @@ const AddRepo = () => {
   return (
     <>
       <Tooltip title="Add GitHub repository">
-        <IconButton color="inherit" onClick={openDialog}>
+        <IconButton color="inherit" onClick={openDialog} disabled={!online}>
           <AddIcon />
         </IconButton>
       </Tooltip>

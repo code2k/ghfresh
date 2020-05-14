@@ -5,12 +5,13 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import React, { useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Header from "../components/Header";
 import NoScript from "../components/NoScript";
 import Welcome from "../components/Welcome";
 import Notifications from "../features/notifications/Notifications";
+import { updateOnlineStatus } from "../features/onlineStatus/onlineSlice";
 import useAutoUpdate from "../features/repos/autoUpdate";
 import RepoList from "../features/repos/RepoList";
 import UpdateNotification from "../features/update/UpdateNotification";
@@ -26,6 +27,7 @@ const selectUpdateAvailable = (state: RootState) =>
 
 const App = () => {
   useAutoUpdate();
+  const dispatch = useDispatch();
   const darkMode = useSelector(selectDarkMode);
   const updateAvailable = useSelector(selectUpdateAvailable);
   const repos = useSelector(selectRepos);
@@ -35,10 +37,20 @@ const App = () => {
     return createTheme(darkMode);
   }, [darkMode]);
 
+  /**
+   * Remove SSR styles
+   */
   useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
     jssStyles?.parentElement?.removeChild(jssStyles);
   }, []);
+
+  /**
+   * Set initial online status
+   */
+  useEffect(() => {
+    dispatch(updateOnlineStatus(navigator?.onLine));
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
