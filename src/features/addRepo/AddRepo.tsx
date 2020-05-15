@@ -35,9 +35,11 @@ const AddRepo = () => {
   return (
     <>
       <Tooltip title="Add GitHub repository">
-        <IconButton color="inherit" onClick={openDialog} disabled={!online}>
-          <AddIcon />
-        </IconButton>
+        <span>
+          <IconButton color="inherit" onClick={openDialog} disabled={!online}>
+            <AddIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       <AddRepoDialog
         open={showDialog}

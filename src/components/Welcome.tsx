@@ -70,13 +70,15 @@ const Welcome = ({ addExamples }: Props) => {
               Add examples
             </Typography>
             <Tooltip title="Add example repositories">
-              <IconButton
-                color="inherit"
-                onClick={addExamples}
-                disabled={!online}
-              >
-                <PlaylistAddIcon />
-              </IconButton>
+              <span>
+                <IconButton
+                  color="inherit"
+                  onClick={addExamples}
+                  disabled={!online}
+                >
+                  <PlaylistAddIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           </Paper>
         </Box>
